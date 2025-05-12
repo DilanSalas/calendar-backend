@@ -100,9 +100,35 @@ const revalidarToken = async(req,res = response)=>{
     })
 
 }
+const googleSignIn = async (req, res) => {
+    console.log(req.body);
+  const { name, email, googleId } = req.body;
 
+  try {
+    let usuario = await Usuario.findOne({ email });
+
+    if (!usuario) {
+         usuario = new Usuario(req.body);
+      await usuario.save();
+    }
+
+    const token = await generarJWT(usuario._id, usuario.name);
+
+    res.json({
+      ok: true,
+      uid: usuario.id,
+      name: usuario.name,
+      token
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ ok: false, msg: 'Error al iniciar sesión con Google' });
+  }
+};
 module.exports = {
     crearUsuario,
     loginUsuario,
     revalidarToken,
-}
+    googleSignIn
+};

@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+require('./controllers/passaport'); 
 const cors = require('cors');   
 const {dbConnection} =  require('./database/config')
 const path = require('path');
@@ -20,6 +21,7 @@ app.use(express.static('public'))
 app.use(express.json())
 
 //rutas
+
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/events', require('./routes/events'))
 
