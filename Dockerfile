@@ -13,7 +13,6 @@ RUN npm install --production
 # Copia el resto del código fuente al contenedor
 COPY . .
 
-
 # Expone el puerto que utiliza la aplicación (ajusta si usas otro)
 EXPOSE 4000
 
