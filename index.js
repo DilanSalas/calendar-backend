@@ -25,15 +25,6 @@ app.use(express.json())
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/events', require('./routes/events'))
 
-// Solo para rutas que NO son de API
-app.get('*', (req, res, next) => {
-  if (req.originalUrl.startsWith('/api/')) {
-    return res.status(404).json({ ok: false, msg: 'API route not found' });
-  }
-  res.sendFile(path.join(__dirname, 'public/index.html'));
-});
-
-//escuchar peticiones
 app.listen(process.env.PORT, () => {
     console.log(`Example app listening at http://localhost:${process.env.PORT}`)
 })
